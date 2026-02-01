@@ -12,17 +12,42 @@ def refresh_tokens():
     print("6. Copy the token and paste it here.")
     print("-" * 30)
     
-    user_token = input("Enter User Access Token: ").strip()
-    
-    if not user_token:
-        print("Empty token provided. Exiting.")
-        return
+    user_token = input("Enter Short-Lived User Access Token: ").strip()
+    # To get a long-lived token, we need App Credentials
+    print("\n[Optional] To generate a PERMANENT (Long-Lived) token, we need your App ID & Secret.")
+    print("Find them in: https://developers.facebook.com/apps/ -> Settings -> Basic")
+    app_id = input("Enter App ID (Press Enter to skip): ").strip()
+    app_secret = input("Enter App Secret (Press Enter to skip): ").strip()
+
+    final_user_token = user_token
+
+    if app_id and app_secret:
+        print("\nExchanging for Long-Lived Token...")
+        try:
+            exchange_url = "https://graph.facebook.com/v19.0/oauth/access_token"
+            params = {
+                "grant_type": "fb_exchange_token",
+                "client_id": app_id,
+                "client_secret": app_secret,
+                "fb_exchange_token": user_token
+            }
+            resp = requests.get(exchange_url, params=params)
+            resp.raise_for_status()
+            long_data = resp.json()
+            if 'access_token' in long_data:
+                final_user_token = long_data['access_token']
+                print("✅ Acquired Long-Lived User Token!")
+            else:
+                print("⚠️ Failed to exchange token, using short-lived one.")
+        except Exception as e:
+            print(f"⚠️ Exchange failed: {e}")
+            print("Proceeding with short-lived token...")
 
     print("\nFetching Pages...")
     try:
         url = "https://graph.facebook.com/me/accounts"
         params = {
-            "access_token": user_token,
+            "access_token": final_user_token,
             "fields": "name,access_token,id"
         }
         resp = requests.get(url, params=params)
@@ -56,10 +81,11 @@ def refresh_tokens():
         set_key(env_file, "FB_PAGE_ID", page_id)
         set_key(env_file, "FB_PAGE_ACCESS_TOKEN", page_token)
         # Verify
-        set_key(env_file, "FB_USER_ACCESS_TOKEN", user_token) # Optional backup
+        set_key(env_file, "FB_USER_ACCESS_TOKEN", final_user_token) # Optional backup
         
         print("✅ SUCCESS! Credentials updated.")
-        print("You can now run 'python auto_poster.py'")
+        print("IMPORTANT: You must output this new FB_PAGE_ACCESS_TOKEN to GitHub Secrets now.")
+        print(f"Your NEW Long-Lived Token (Update GitHub with this!):\n{page_token}")
         
     except Exception as e:
         print(f"Error: {e}")

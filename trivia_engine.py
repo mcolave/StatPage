@@ -93,12 +93,54 @@ def generate_trivia_image(data, output_file="current_trivia.png"):
         draw = ImageDraw.Draw(img)
         
         # Fonts - Try to load a nice system font, fallback to default
-        try:
-            # Common paths for better fonts
-            title_font = ImageFont.truetype("arial.ttf", 80)
-            text_font = ImageFont.truetype("arial.ttf", 50)
-            small_font = ImageFont.truetype("arial.ttf", 35)
-        except IOError:
+        # Font Handling - Robust Cross-Platform Fix
+        def get_font(name, size):
+            try:
+                return ImageFont.truetype(name, size)
+            except IOError:
+                return None
+                
+        # 1. Try Roboto (Downloaded if missing) - Best for consistency
+        font_path = "Roboto-Bold.ttf"
+        import requests
+        if not os.path.exists(font_path):
+            print("Downloading Roboto font for consistent rendering...")
+            try:
+                url = "https://github.com/google/fonts/raw/main/apache/roboto/Roboto-Bold.ttf"
+                r = requests.get(url)
+                with open(font_path, 'wb') as f:
+                    f.write(r.content)
+            except Exception as e:
+                 print(f"Failed to download font: {e}")
+                 
+        title_font = get_font(font_path, 80)
+        text_font = get_font(font_path, 50)
+        small_font = get_font(font_path, 35)
+        
+        # 2. Fallback to Arial (Windows)
+        if not title_font:
+             title_font = get_font("arial.ttf", 80)
+             text_font = get_font("arial.ttf", 50)
+             small_font = get_font("arial.ttf", 35)
+             
+        # 3. Fallback to DejaVu (Linux/GitHub Actions)
+        if not title_font:
+             # Common locations on Ubuntu
+             linux_fonts = [
+                 "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+                 "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+             ]
+             for f in linux_fonts:
+                 title_font = get_font(f, 80)
+                 if title_font:
+                     text_font = get_font(f, 50)
+                     small_font = get_font(f, 35)
+                     print(f"Using Linux Font: {f}")
+                     break
+
+        # 4. Final Fallback (Bitmap - Tiny but prevents crash)
+        if not title_font:
+            print("⚠️ Warning: No TrueType font found. Text will be tiny.")
             title_font = ImageFont.load_default()
             text_font = ImageFont.load_default()
             small_font = ImageFont.load_default()
