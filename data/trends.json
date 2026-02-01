@@ -1,0 +1,217 @@
+[
+    {
+        "Country": "United States",
+        "ISO": "USA",
+        "Trends": "1. NFL Rankings<br>2. Taylor Swift<br>3. Election News"
+    },
+    {
+        "Country": "Canada",
+        "ISO": "CAN",
+        "Trends": "1. NHL Scores<br>2. Housing Market<br>3. Northern Lights"
+    },
+    {
+        "Country": "Mexico",
+        "ISO": "MEX",
+        "Trends": "1. Liga MX<br>2. Peso Rate<br>3. Concerts"
+    },
+    {
+        "Country": "Brazil",
+        "ISO": "BRA",
+        "Trends": "1. Flamengo<br>2. Carnival 2026<br>3. BBB Vote"
+    },
+    {
+        "Country": "Argentina",
+        "ISO": "ARG",
+        "Trends": "1. Messi Inter Miami<br>2. Dollar Blue<br>3. Asado Recipes"
+    },
+    {
+        "Country": "Chile",
+        "ISO": "CHL",
+        "Trends": "1. Colo Colo<br>2. Tsunami Warning<br>3. Metro Santiago"
+    },
+    {
+        "Country": "Colombia",
+        "ISO": "COL",
+        "Trends": "1. Shakira<br>2. Copa America<br>3. Ciclovia"
+    },
+    {
+        "Country": "Peru",
+        "ISO": "PER",
+        "Trends": "1. Machu Picchu Tickets<br>2. Ceviche<br>3. Liga 1"
+    },
+    {
+        "Country": "United Kingdom",
+        "ISO": "GBR",
+        "Trends": "1. Premier League<br>2. Royal Family<br>3. BBC Weather"
+    },
+    {
+        "Country": "France",
+        "ISO": "FRA",
+        "Trends": "1. PSG Match<br>2. Paris Metro<br>3. Strike Update"
+    },
+    {
+        "Country": "Germany",
+        "ISO": "DEU",
+        "Trends": "1. Bundesliga<br>2. Bahn Streik<br>3. Oktoberfest Info"
+    },
+    {
+        "Country": "Italy",
+        "ISO": "ITA",
+        "Trends": "1. Serie A Results<br>2. Sanremo Festival<br>3. Pasta Carbonara"
+    },
+    {
+        "Country": "Spain",
+        "ISO": "ESP",
+        "Trends": "1. Real Madrid<br>2. La Liga<br>3. Weather Madrid"
+    },
+    {
+        "Country": "Netherlands",
+        "ISO": "NLD",
+        "Trends": "1. F1 Verstappen<br>2. Train Schedule<br>3. Ajax"
+    },
+    {
+        "Country": "Belgium",
+        "ISO": "BEL",
+        "Trends": "1. Jupiler League<br>2. Tomorrowland<br>3. Weather Brussels"
+    },
+    {
+        "Country": "Switzerland",
+        "ISO": "CHE",
+        "Trends": "1. Ski Resorts<br>2. Rolex<br>3. Chocolate"
+    },
+    {
+        "Country": "Sweden",
+        "ISO": "SWE",
+        "Trends": "1. Eurovision<br>2. Stockholm Weather<br>3. Meatballs"
+    },
+    {
+        "Country": "Norway",
+        "ISO": "NOR",
+        "Trends": "1. Northern Lights<br>2. Electric Cars<br>3. Haaland"
+    },
+    {
+        "Country": "Poland",
+        "ISO": "POL",
+        "Trends": "1. Lewandowski<br>2. Election Polls<br>3. Pierogi"
+    },
+    {
+        "Country": "Ukraine",
+        "ISO": "UKR",
+        "Trends": "1. News Updates<br>2. Eurovision<br>3. Weather Kyiv"
+    },
+    {
+        "Country": "Russia",
+        "ISO": "RUS",
+        "Trends": "1. Hockey Scores<br>2. Yandex Maps<br>3. Holidays"
+    },
+    {
+        "Country": "Turkey",
+        "ISO": "TUR",
+        "Trends": "1. Super Lig<br>2. Gold Price<br>3. Election Results"
+    },
+    {
+        "Country": "China",
+        "ISO": "CHN",
+        "Trends": "1. Spring Festival<br>2. EV Cars<br>3. Panda News"
+    },
+    {
+        "Country": "Japan",
+        "ISO": "JPN",
+        "Trends": "1. Anime Season<br>2. Baseball<br>3. Earthquake Alert"
+    },
+    {
+        "Country": "India",
+        "ISO": "IND",
+        "Trends": "1. Cricket Live<br>2. Bollywood News<br>3. IPO Listing"
+    },
+    {
+        "Country": "South Korea",
+        "ISO": "KOR",
+        "Trends": "1. K-Pop Comeback<br>2. League of Legends<br>3. Samsung"
+    },
+    {
+        "Country": "Indonesia",
+        "ISO": "IDN",
+        "Trends": "1. Election 2026<br>2. Liga 1<br>3. Bali Travel"
+    },
+    {
+        "Country": "Thailand",
+        "ISO": "THA",
+        "Trends": "1. Lottery Results<br>2. Premier League<br>3. Street Food"
+    },
+    {
+        "Country": "Vietnam",
+        "ISO": "VNM",
+        "Trends": "1. Tet Holiday<br>2. Coffee Price<br>3. Football"
+    },
+    {
+        "Country": "Philippines",
+        "ISO": "PHL",
+        "Trends": "1. PBA Scores<br>2. Miss Universe<br>3. Typhoon Update"
+    },
+    {
+        "Country": "Malaysia",
+        "ISO": "MYS",
+        "Trends": "1. Badminton<br>2. Holiday List<br>3. Exchange Rate"
+    },
+    {
+        "Country": "Singapore",
+        "ISO": "SGP",
+        "Trends": "1. F1 Singapore<br>2. HDB Applications<br>3. Hawker Centers"
+    },
+    {
+        "Country": "Pakistan",
+        "ISO": "PAK",
+        "Trends": "1. Cricket World Cup<br>2. Gold Rate<br>3. PSL Schedule"
+    },
+    {
+        "Country": "Bangladesh",
+        "ISO": "BGD",
+        "Trends": "1. Cricket Store<br>2. HSC Results<br>3. Weather Dhaka"
+    },
+    {
+        "Country": "Australia",
+        "ISO": "AUS",
+        "Trends": "1. AFL Ladder<br>2. Cricket Scores<br>3. Beach Weather"
+    },
+    {
+        "Country": "New Zealand",
+        "ISO": "NZL",
+        "Trends": "1. Rugby All Blacks<br>2. Weather Auckland<br>3. Election"
+    },
+    {
+        "Country": "Egypt",
+        "ISO": "EGY",
+        "Trends": "1. Al Ahly<br>2. Dollar Price<br>3. Ramadan Dates"
+    },
+    {
+        "Country": "Saudi Arabia",
+        "ISO": "SAU",
+        "Trends": "1. Ronaldo Al Nassr<br>2. Riyadh Season<br>3. Prayer Times"
+    },
+    {
+        "Country": "UAE",
+        "ISO": "ARE",
+        "Trends": "1. Dubai Events<br>2. Burj Khalifa<br>3. Gold Rate"
+    },
+    {
+        "Country": "South Africa",
+        "ISO": "ZAF",
+        "Trends": "1. Rugby World Cup<br>2. Load Shedding<br>3. Amapiano"
+    },
+    {
+        "Country": "Nigeria",
+        "ISO": "NGA",
+        "Trends": "1. Big Brother<br>2. Afrobeats<br>3. FX Rate"
+    },
+    {
+        "Country": "Kenya",
+        "ISO": "KEN",
+        "Trends": "1. Safari Rally<br>2. Premier League<br>3. M-Pesa"
+    },
+    {
+        "Country": "Morocco",
+        "ISO": "MAR",
+        "Trends": "1. World Cup 2030<br>2. Prayer Times<br>3. Weather Casablanca"
+    }
+]

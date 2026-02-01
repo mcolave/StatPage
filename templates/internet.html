@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Internet Usage - StatHub{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Internet Connectivity</h1>
+    <p>Top countries by percentage of population using the Internet.</p>
+</div>
+
+<div class="stat-container" style="max-width: 800px; margin: 0 auto;">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Country</th>
+                <th>Internet Usage (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.Country }}</td>
+                <td>{{ "%.1f"|format(item.InternetUsage) }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .data-table th {
+        background: rgba(255, 255, 255, 0.05);
+        font-weight: bold;
+        color: var(--accent);
+    }
+
+    .data-table tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+    }
+</style>
+{% endblock %}

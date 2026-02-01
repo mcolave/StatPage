@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <h1>Global Statistics Hub</h1>
+    <p>Explore interactive visualizations of the world's most important data.</p>
+</div>
+
+<!-- World Map Section -->
+<div class="map-container"
+    style="width: 100%; margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--card-bg);">
+    <div id="trendsMap"></div>
+</div>
+<script>
+    var mapGraph = {{ mapJSON | safe }};
+    Plotly.newPlot('trendsMap', mapGraph.data, mapGraph.layout);
+</script>
+
+<div class="card-grid">
+    <div class="card">
+        <h2>GDP Rankings</h2>
+        <p>Compare the economic output of top nations.</p>
+        <a href="/gdp"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Analysis &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>World Population</h2>
+        <p>Visualize the distribution of human population.</p>
+        <a href="/population"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Demographics &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>Covid-19 Impact</h2>
+        <p>Track the history of pandemic cases globally.</p>
+        <a href="/covid"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Trends &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>CO2 Emissions</h2>
+        <p>Top countries by CO2 emissions per capita.</p>
+        <a href="/co2"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Emissions &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>Life Expectancy</h2>
+        <p>Global life expectancy at birth.</p>
+        <a href="/life-expectancy"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Stats &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>Global Inflation</h2>
+        <p>Countries with highest inflation rates.</p>
+        <a href="/inflation"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            Rates &rarr;</a>
+    </div>
+    <div class="card">
+        <h2>Internet Usage</h2>
+        <p>Top connected countries.</p>
+        <a href="/internet"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            List &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>Forest Cover</h2>
+        <p>Greenest countries by forest area.</p>
+        <a href="/forest"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            List &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2>Literacy Rates</h2>
+        <p>Countries with highest literacy.</p>
+        <a href="/literacy"
+            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
+            List &rarr;</a>
+    </div>
+</div>
+{% endblock %}

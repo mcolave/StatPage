@@ -1,0 +1,32 @@
+mydashboard/
+│
+├── app.py
+├── requirements.txt
+│
+├── data_pipeline/
+│   ├── __init__.py
+│   ├── fetch_gdp.py
+│   ├── fetch_billboard.py
+│   └── fetch_imports.py
+│
+├── charts/
+│   ├── __init__.py
+│   ├── gdp_chart.py
+│   ├── billboard_chart.py
+│   └── imports_chart.py
+│
+├── static/
+│   └── (your generated PNG charts will go here)
+│
+└── templates/
+    ├── base.html
+    ├── index.html
+    ├── gdp.html
+    ├── billboard.html
+    └── imports.html
+
+
+012526
+I'm building a modular Flask + Plotly dashboard site with automated chart generation and scheduled updates. The project includes GDP, Billboard, and Imports panels, each with its own data fetcher, chart module, and HTML template. I'm using VS Code and a local virtual environment. The structure is clean and ready for expansion — next steps might include heatmaps, real data sources, or deployment to PythonAnywhere.
+
+

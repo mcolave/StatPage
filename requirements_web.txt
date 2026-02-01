@@ -1,0 +1,6 @@
+Flask
+plotly
+pandas
+requests
+google-generativeai
+python-dotenv

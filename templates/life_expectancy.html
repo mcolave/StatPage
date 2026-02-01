@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Life Expectancy - StatHub{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Life Expectancy</h1>
+    <p>Average life expectancy at birth by country.</p>
+</div>
+
+<div class="card">
+    <div id="chart" class="chart-container"></div>
+</div>
+
+<script>
+    var graph = {{ graphJSON | safe }};
+    Plotly.newPlot('chart', graph.data, graph.layout);
+</script>
+{% endblock %}

@@ -1,0 +1,1 @@
+C:\Users\mcolave_msi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai

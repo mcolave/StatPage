@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}GDP Stats - StatHub{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Global Economic Power</h1>
+    <p>Top 10 Countries by Gross Domestic Product (GDP)</p>
+</div>
+
+<div class="card">
+    <div id="chart" class="chart-container"></div>
+</div>
+
+<script>
+    var graph = {{ graphJSON | safe }};
+    Plotly.newPlot('chart', graph.data, graph.layout);
+</script>
+{% endblock %}
