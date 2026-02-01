@@ -1,4 +1,5 @@
 import os
+import sys
 import random
 import json
 import argparse
@@ -177,6 +178,7 @@ def main():
         print("Post successful!")
     else:
         print("Post failed.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
