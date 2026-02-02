@@ -1,9 +1,9 @@
 name: StatPage Daily Poster
 
 on:
-  schedule:
-    # Runs at 02:00 UTC everyday (Approx 10:00 AM Singapore/China Time)
-    - cron: '0 2 * * *'
+#   schedule:
+#     # Runs at 02:00 UTC everyday (Approx 10:00 AM Singapore/China Time)
+#     - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual trigger button for testing
 
 jobs:
