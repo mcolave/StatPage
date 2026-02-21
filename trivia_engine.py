@@ -52,6 +52,11 @@ def generate_trivia_content():
         """
         response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
         data = json.loads(response.text)
+        
+        # Save to JSON file for Web App
+        with open("current_trivia.json", "w") as f:
+            json.dump(data, f, indent=4)
+            
         return data
     except Exception as e:
         print(f"Error generating text: {e}")

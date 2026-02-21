@@ -183,3 +183,93 @@ def create_trends_map():
     )
 
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+
+def create_generic_chart(df, chart_type, title, color_column, color_scale='Viridis', orientation='v'):
+    """Generates a chart dynamically based on parameters."""
+    if df.empty:
+        return json.dumps({}, cls=plotly.utils.PlotlyJSONEncoder)
+
+    if chart_type == 'bar':
+        df_plot = df[:15].copy() # Work on a copy
+        
+        # Determine Year for Title
+        # Check if 'Year' column exists (it should now)
+        year_str = ""
+        if 'Year' in df_plot.columns and not df_plot['Year'].isnull().all():
+            # Get most common year
+            mode_year = df_plot['Year'].mode()
+            if not mode_year.empty:
+                year_str = f" ({mode_year[0]})"
+            else:
+                # If mixed, maybe range? or just first
+                year_str = f" ({df_plot['Year'].iloc[0]})"
+        
+        final_title = f"{title}{year_str}"
+        
+        # Prepare data for go.Bar
+        if orientation == 'h':
+            x_data = df_plot['Value'].tolist()
+            y_data = df_plot['Country'].tolist()
+            text_template = '%{x:.2s}'
+            
+            # DEBUG LOG
+            try:
+                with open("chart_debug.log", "a") as f:
+                    f.write(f"Chart: {title}\n")
+                    f.write(f"Orientation: {orientation}\n")
+                    f.write(f"X Data (Values): {x_data[:5]}\n")
+                    f.write(f"Y Data (Country): {y_data[:5]}\n")
+                    f.write("-" * 20 + "\n")
+            except: pass
+            
+        else:
+            x_data = df_plot['Country'].tolist()
+            y_data = df_plot['Value'].tolist()
+            text_template = '%{y:.2s}'
+
+        fig = go.Figure(go.Bar(
+            x=x_data,
+            y=y_data,
+            orientation=orientation,
+            texttemplate=text_template,
+            textposition='auto',
+            marker=dict(
+                color=df_plot['Value'],
+                colorscale=color_scale,
+                showscale=True
+            )
+        ))
+        
+        fig.update_layout(
+            title=final_title,
+            template='plotly_dark',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(family="Inter, sans-serif"),
+            margin=dict(t=50, l=25, r=25, b=25)
+        )
+
+        if orientation == 'h':
+             fig.update_layout(yaxis={'categoryorder':'total ascending'})
+            
+    elif chart_type == 'pie':
+        fig = px.pie(
+            df[:10], 
+            values='Value', 
+            names='Country', 
+            title=title,
+            hole=0.4
+        )
+        fig.update_layout(
+            template='plotly_dark',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(family="Inter, sans-serif")
+        )
+
+    else:
+        return json.dumps({}, cls=plotly.utils.PlotlyJSONEncoder)
+    
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

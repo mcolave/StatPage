@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ stat_config.title }} - StatHub{% endblock %}
+
+{% block content %}
+<div class="hero" style="margin-bottom: 2rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 0.5rem;">{{ stat_config.title }}</h1>
+    <p style="font-size: 1.1rem;">{{ stat_config.desc }}</p>
+</div>
+
+<div class="card" style="overflow-x: auto; padding: 0;">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: rgba(0,0,0,0.2); color: var(--text-primary); text-align: left;">
+                <th style="padding: 1.5rem; border-bottom: 2px solid var(--accent); font-weight: 600;">Rank</th>
+                <th style="padding: 1.5rem; border-bottom: 2px solid var(--accent); font-weight: 600;">Country</th>
+                <th
+                    style="padding: 1.5rem; border-bottom: 2px solid var(--accent); text-align: right; font-weight: 600;">
+                    {{
+                    stat_config.chart_title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s;"
+                onmouseover="this.style.backgroundColor='rgba(56, 189, 248, 0.05)'"
+                onmouseout="this.style.backgroundColor='transparent'">
+                <td style="padding: 1.2rem 1.5rem; color: var(--text-secondary); font-weight: 500;">#{{ loop.index }}
+                </td>
+                <td style="padding: 1.2rem 1.5rem; font-weight: 600; font-size: 1.1rem;">{{ row.Country }}</td>
+                <td
+                    style="padding: 1.2rem 1.5rem; text-align: right; font-family: monospace; font-size: 1.2rem; color: var(--accent); font-weight: bold;">
+                    {{ "%.1f"|format(row.Value) }}%
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="text-align: center; margin-top: 3rem;">
+    <a href="/"
+        style="display: inline-block; padding: 0.8rem 2rem; background: var(--card-bg); color: var(--text-primary); text-decoration: none; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; font-weight: 600;">
+        &larr; Back to Dashboard
+    </a>
+</div>
+{% endblock %}

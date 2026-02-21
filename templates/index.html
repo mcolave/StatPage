@@ -6,86 +6,177 @@
     <p>Explore interactive visualizations of the world's most important data.</p>
 </div>
 
-<!-- World Map Section -->
-<div class="map-container"
-    style="width: 100%; margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--card-bg);">
-    <div id="trendsMap"></div>
+
+
+<!-- Key Metrics Dashboard -->
+<div class="metrics-grid"
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+    <!-- Stat 1 -->
+    <div class="metric-card card">
+        <div
+            style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; font-weight: 500;">
+            <span style="font-size: 1.2rem; margin-right: 8px;">👥</span> World Population
+        </div>
+        <div style="font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1.2;">{{ key_metrics.population }}
+        </div>
+    </div>
+
+    <!-- Stat 2 -->
+    <div class="metric-card card">
+        <div
+            style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; font-weight: 500;">
+            <span style="font-size: 1.2rem; margin-right: 8px;">🦠</span> Total Covid Stats
+        </div>
+        <div style="font-size: 2.5rem; font-weight: 800; color: #f87171; line-height: 1.2;">{{ key_metrics.covid_cases
+            }}</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Total Cases</div>
+    </div>
+
+    <!-- Stat 3 -->
+    <div class="metric-card card">
+        <div
+            style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; font-weight: 500;">
+            <span style="font-size: 1.2rem; margin-right: 8px;">💰</span> Top Economy
+        </div>
+        <div style="font-size: 2.5rem; font-weight: 800; color: #34d399; line-height: 1.2;">{{ key_metrics.top_gdp }}
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">{{ key_metrics.top_gdp_val }}
+            GDP</div>
+    </div>
+
+    <!-- Stat 4 -->
+    <div class="metric-card card">
+        <div
+            style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; font-weight: 500;">
+            <span style="font-size: 1.2rem; margin-right: 8px;">❤️</span> Highest Life Exp.
+        </div>
+        <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1.2;">{{
+            key_metrics.life_exp }}</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">{{ key_metrics.life_exp_val }}
+        </div>
+    </div>
 </div>
+
+<style>
+    .visuals-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        /* Default to stack */
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        .visuals-grid {
+            grid-template-columns: 2fr 1fr;
+            /* Desktop: Map larger */
+        }
+    }
+</style>
+
+<!-- Visuals Grid: Map + Highlight -->
+<div class="visuals-grid">
+
+    <!-- World Map Section -->
+    <div class="map-container card" style="padding: 0; display: flex; flex-direction: column;">
+        <div
+            style="padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+            <h3 style="margin:0; font-size: 1.3rem; color: #fff; display: flex; align-items: center; gap: 8px;">🌍
+                Global Trends</h3>
+            <small style="color: var(--text-secondary); font-weight: 500;">Live Search Activity</small>
+        </div>
+        <div id="trendsMap" style="flex: 1; width: 100%; min-height: 400px;"></div>
+    </div>
+
+    <!-- SEA Highlight Section -->
+    <div class="highlight-container card" style="padding: 0; display: flex; flex-direction: column;">
+        <div
+            style="padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+            <h3
+                style="margin:0; font-size: 1.3rem; color: var(--accent); display: flex; align-items: center; gap: 8px;">
+                📊 Regional Spotlight</h3>
+            <small style="color: var(--text-secondary); font-weight: 500;">Southeast Asia</small>
+        </div>
+        <div id="seaChart" style="flex: 1; width: 100%; min-height: 400px;"></div>
+    </div>
+
+</div>
+
 <script>
     var mapGraph = {{ mapJSON | safe }};
-    Plotly.newPlot('trendsMap', mapGraph.data, mapGraph.layout);
+    var seaGraph = {{ seaChartJSON | safe }};
+
+    var config = { responsive: true, displayModeBar: false };
+
+    Plotly.newPlot('trendsMap', mapGraph.data, mapGraph.layout, config);
+    Plotly.newPlot('seaChart', seaGraph.data, seaGraph.layout, config);
 </script>
 
-<div class="card-grid">
-    <div class="card">
-        <h2>GDP Rankings</h2>
-        <p>Compare the economic output of top nations.</p>
-        <a href="/gdp"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Analysis &rarr;</a>
-    </div>
+<!-- Daily Trivia Section -->
+{% if trivia %}
+<div class="trivia-section" style="margin-bottom: 3rem; animation: fadeIn 1s ease-in-out;">
+    <div
+        style="background: linear-gradient(135deg, #161b22 0%, #0d1117 100%); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; box-shadow: var(--shadow);">
+        <!-- Background decoration -->
+        <div
+            style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: var(--accent); opacity: 0.1; border-radius: 50%; filter: blur(40px);">
+        </div>
 
-    <div class="card">
-        <h2>World Population</h2>
-        <p>Visualize the distribution of human population.</p>
-        <a href="/population"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Demographics &rarr;</a>
-    </div>
+        <div style="display: flex; gap: 3rem; flex-wrap: wrap; align-items: center;">
+            <div style="flex: 2; min-width: 300px;">
+                <span
+                    style="color: var(--accent); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">✨
+                    Daily Insight</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">{{ trivia.topic }}</h2>
 
-    <div class="card">
-        <h2>Covid-19 Impact</h2>
-        <p>Track the history of pandemic cases globally.</p>
-        <a href="/covid"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Trends &rarr;</a>
-    </div>
+                <ul style="list-style: none;">
+                    {% for stat in trivia.stats %}
+                    <li
+                        style="margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1.1rem; color: #e2e8f0;">
+                        <span style="color: var(--accent); margin-right: 12px; font-size: 1.2rem;">➤</span>
+                        {{ stat }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-    <div class="card">
-        <h2>CO2 Emissions</h2>
-        <p>Top countries by CO2 emissions per capita.</p>
-        <a href="/co2"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Emissions &rarr;</a>
-    </div>
-
-    <div class="card">
-        <h2>Life Expectancy</h2>
-        <p>Global life expectancy at birth.</p>
-        <a href="/life-expectancy"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Stats &rarr;</a>
-    </div>
-
-    <div class="card">
-        <h2>Global Inflation</h2>
-        <p>Countries with highest inflation rates.</p>
-        <a href="/inflation"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            Rates &rarr;</a>
-    </div>
-    <div class="card">
-        <h2>Internet Usage</h2>
-        <p>Top connected countries.</p>
-        <a href="/internet"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            List &rarr;</a>
-    </div>
-
-    <div class="card">
-        <h2>Forest Cover</h2>
-        <p>Greenest countries by forest area.</p>
-        <a href="/forest"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            List &rarr;</a>
-    </div>
-
-    <div class="card">
-        <h2>Literacy Rates</h2>
-        <p>Countries with highest literacy.</p>
-        <a href="/literacy"
-            style="color: var(--accent); text-decoration: none; font-weight: bold; margin-top: 1rem; display: inline-block;">View
-            List &rarr;</a>
+            <div
+                style="flex: 1; min-width: 280px; background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); padding: 2rem; border-radius: 12px;">
+                <h3 style="color: #ffd700; margin-bottom: 1rem; display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 10px;">💡</span> Fun Fact
+                </h3>
+                <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.7;">
+                    {{ trivia.fun_fact }}
+                </p>
+            </div>
+        </div>
     </div>
 </div>
+{% endif %}
+
+<!-- Stats Grid by Category -->
+{% for category, stats in grouped_stats.items() %}
+{% if stats %}
+<div class="category-section" style="margin-bottom: 4rem;">
+    <h2
+        style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--text-primary); border-left: 4px solid var(--accent); padding-left: 1rem; display: flex; align-items: center;">
+        {{ category }}
+    </h2>
+    <div class="card-grid">
+        {% for stat in stats %}
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h3 style="margin-bottom: 0.8rem; font-size: 1.3rem;">{{ stat.title }}</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">{{ stat.desc }}</p>
+            </div>
+            <a href="/stats/{{ stat.id }}"
+                style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s;">
+                View Data <span>&rarr;</span>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
 {% endblock %}

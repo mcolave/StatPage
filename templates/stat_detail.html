@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ stat_config.title }} - StatHub{% endblock %}
+
+{% block content %}
+<div class="hero" style="margin-bottom: 2rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 0.5rem;">{{ stat_config.title }}</h1>
+    <p style="font-size: 1.1rem;">{{ stat_config.desc }}</p>
+</div>
+
+<div class="card" style="padding: 1rem;">
+    <div id="chart" class="chart-container" style="min-height: 550px;"></div>
+</div>
+
+<div style="text-align: center; margin-top: 3rem;">
+    <a href="/"
+        style="display: inline-block; padding: 0.8rem 2rem; background: var(--card-bg); color: var(--text-primary); text-decoration: none; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; font-weight: 600;">
+        &larr; Back to Dashboard
+    </a>
+</div>
+
+<script>
+    var graph = {{ graphJSON | safe }};
+    Plotly.newPlot('chart', graph.data, graph.layout);
+</script>
+{% endblock %}

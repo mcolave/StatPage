@@ -2,12 +2,12 @@ import zipfile
 import os
 
 def zip_project():
-    filename = 'stathub_deploy.zip'
+    filename = 'StatPage_Deploy.zip'
     print(f"Zipping project to {filename}...")
     
     with zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         # Root files
-        files = ['app.py', 'data_loader.py', 'requirements.txt', '.env']
+        files = ['app.py', 'data_loader.py', 'requirements.txt', '.env', 'trivia_engine.py', 'current_trivia.json', 'stats_config.py']
         for f in files:
             if os.path.exists(f):
                 print(f"  Adding {f}")

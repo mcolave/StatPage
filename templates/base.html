@@ -4,28 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Global Stats Dashboard{% endblock %}</title>
+    <title>{% block title %}Global Stats Dashboard | StatHub{% endblock %}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="{% block meta_description %}Explore interactive visualizations of the world's most important data including GDP, Population, Life Expectancy, and more on StatHub.{% endblock %}">
+    <meta name="keywords"
+        content="Global Statistics, GDP, Population, CO2 Emissions, Life Expectancy, Data Visualization">
+    <meta name="author" content="StatHub">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="{% block og_title %}Global Stats Dashboard | StatHub{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}Explore interactive visualizations of the world's most important data including GDP, Population, Life Expectancy, and more on StatHub.{% endblock %}">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
         rel="stylesheet">
     <!-- Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 </head>
 
 <body>
+    <!-- Global Loading Overlay -->
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
     <nav class="navbar">
         <a href="/" class="brand">Stat<span style="color: #fff;">Hub</span></a>
         <div class="nav-links">
             <a href="/">Home</a>
-            <a href="/gdp">GDP</a>
-            <a href="/population">Population</a>
+
+            {% for category, stats in grouped_stats_nav.items() %}
+            {% if stats %}
+            <div class="dropdown">
+                <button class="dropbtn">{{ category }} ▾</button>
+                <div class="dropdown-content">
+                    {% for stat in stats %}
+                    <a href="/stats/{{ stat.id }}">{{ stat.menu_title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
             <a href="/covid">Covid-19</a>
-            <a href="/co2">CO2</a>
-            <a href="/life-expectancy">Life Exp.</a>
-            <a href="/inflation">Inflation</a>
-            <a href="/internet">Internet</a>
-            <a href="/forest">Forest</a>
-            <a href="/literacy">Literacy</a>
         </div>
     </nav>
 
@@ -55,6 +82,20 @@
     </footer>
 
     <script src="{{ url_for('static', filename='chat.js') }}"></script>
+    <!-- Loading Spinner Script -->
+    <script>
+        // Show loader when navigating away (gives instant feedback during slow API fetches)
+        window.addEventListener('beforeunload', function () {
+            document.getElementById('loader').classList.add('active');
+        });
+
+        // Hide loader if page is loaded from bfcache (e.g. back button)
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                document.getElementById('loader').classList.remove('active');
+            }
+        });
+    </script>
 </body>
 
 </html>
